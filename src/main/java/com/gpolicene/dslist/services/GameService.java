@@ -3,6 +3,7 @@ package com.gpolicene.dslist.services;
 import com.gpolicene.dslist.dto.GameDTO;
 import com.gpolicene.dslist.dto.GameMinDTO;
 import com.gpolicene.dslist.entities.Game;
+import com.gpolicene.dslist.projections.GameMinProjection;
 import com.gpolicene.dslist.repositories.iGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,16 @@ public class GameService {
                 .map(GameMinDTO::new)
                 .toList(); // Está retornando um DTO.
     }
+
+    @Transactional(readOnly = true) // Assegurando que não vai fazer nenhum operação de escrita, tornando mais rápida a busca.
+    public List<GameMinDTO> findByList(Long listId){
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
+        return result.stream()
+                .map(GameMinDTO::new)
+                .toList(); // Está retornando um DTO.
+    }
+
+
 
     @Transactional(readOnly = true)
     public GameDTO findByID(Long id){
