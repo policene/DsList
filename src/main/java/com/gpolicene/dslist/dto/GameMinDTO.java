@@ -1,7 +1,6 @@
 package com.gpolicene.dslist.dto;
 
 import com.gpolicene.dslist.entities.Game;
-import jakarta.persistence.Column;
 
 public class GameMinDTO {
 
